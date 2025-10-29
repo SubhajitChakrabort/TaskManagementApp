@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Check if user is logged in on initial load
+ 
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -35,9 +35,8 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       const { data } = await authAPI.register(userData);
-      localStorage.setItem('token', data.token);
-      setCurrentUser(data.user);
-      return { success: true };
+      // Don't auto-login - let user go to login page
+      return { success: true, message: 'Registration successful! Please login.' };
     } catch (error) {
       return {
         success: false,

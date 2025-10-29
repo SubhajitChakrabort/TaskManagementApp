@@ -12,6 +12,7 @@ const Register = () => {
     confirmPassword: ''
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -39,11 +40,16 @@ const Register = () => {
 
     try {
       setError('');
+      setSuccess('');
       setLoading(true);
       const result = await register({ name, email, phone: phone || undefined, password });
       
       if (result.success) {
-        navigate('/');
+        setSuccess(result.message || 'Registration successful! Redirecting to login...');
+        // Wait 2 seconds to show success message before redirecting
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
       } else {
         setError(result.message || 'Registration failed');
       }
@@ -61,6 +67,7 @@ const Register = () => {
         <h2>Create an Account</h2>
         
         {error && <div className="error-message">{error}</div>}
+        {success && <div className="success-message">{success}</div>}
         
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">

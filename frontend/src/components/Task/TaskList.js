@@ -20,14 +20,14 @@ const TaskList = () => {
     totalPages: 1
   });
 
-  // Debounce search input
+  
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setFilters(prev => ({
         ...prev,
         search: searchInput
       }));
-      // Reset to page 1 when search changes
+      
       setPagination(prev => ({ ...prev, page: 1 }));
     }, 500); // Wait 500ms after user stops typing
 
@@ -48,7 +48,7 @@ const TaskList = () => {
         const { data } = await taskAPI.getTasks(params);
         setTasks(data.data || []);
         
-        // Update pagination info
+        
         if (data.pagination) {
           setPagination(prev => ({
             ...prev,
@@ -90,7 +90,7 @@ const TaskList = () => {
         ...prev,
         [name]: value
       }));
-      // Reset to page 1 when filters change
+      
       setPagination(prev => ({ ...prev, page: 1 }));
     }
   };

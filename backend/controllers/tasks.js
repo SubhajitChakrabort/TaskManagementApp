@@ -2,9 +2,7 @@ const Task = require('../models/Task');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 
-// @desc    Get all tasks
-// @route   GET /api/v1/tasks
-// @access  Private
+
 exports.getTasks = asyncHandler(async (req, res, next) => {
   // Copy req.query
   const reqQuery = { ...req.query };
@@ -92,9 +90,7 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Get single task
-// @route   GET /api/v1/tasks/:id
-// @access  Private
+
 exports.getTask = asyncHandler(async (req, res, next) => {
   const task = await Task.findById(req.params.id).populate('user', 'name email');
   
@@ -120,9 +116,7 @@ exports.getTask = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Create new task
-// @route   POST /api/v1/tasks
-// @access  Private
+
 exports.createTask = asyncHandler(async (req, res, next) => {
   // Add user to req.body
   req.body.user = req.user._id;
@@ -135,9 +129,7 @@ exports.createTask = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Update task
-// @route   PUT /api/v1/tasks/:id
-// @access  Private
+
 exports.updateTask = asyncHandler(async (req, res, next) => {
   let task = await Task.findById(req.params.id);
   
@@ -168,9 +160,7 @@ exports.updateTask = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Delete task
-// @route   DELETE /api/v1/tasks/:id
-// @access  Private
+
 exports.deleteTask = asyncHandler(async (req, res, next) => {
   const task = await Task.findById(req.params.id);
   
